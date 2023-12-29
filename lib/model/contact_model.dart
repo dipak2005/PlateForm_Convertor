@@ -1,9 +1,9 @@
 import 'package:image_picker/image_picker.dart';
 
 class ContactModel{
-  String? namel;
+  String? name;
   String? email;
   String? number;
   XFile? xFile;
-  ContactModel(this.namel, this.email, this.number,this.xFile);
+  ContactModel({this.name, this.email, this.number, this.xFile});
 }

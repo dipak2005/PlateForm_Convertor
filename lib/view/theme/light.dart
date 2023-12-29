@@ -13,7 +13,6 @@ ThemeData light = ThemeData.light().copyWith(
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.transparent,
-    centerTitle: true,
     elevation: 0,
     iconTheme: IconThemeData(
       color: Colors.black,
@@ -34,7 +33,6 @@ ThemeData light = ThemeData.light().copyWith(
   ),
   iconButtonTheme: IconButtonThemeData(
     style: ButtonStyle(
-
       elevation: MaterialStatePropertyAll(2),
     ),
   ),

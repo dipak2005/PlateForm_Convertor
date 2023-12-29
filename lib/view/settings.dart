@@ -24,59 +24,66 @@ class _SettingsState extends State<Settings> {
             title: Text(
               "Dark Mode",
             ),
-            trailing: Consumer<Themeprovider>(
-              builder: (context, theme, child) {
-                return Switch(
-                  inactiveTrackColor: Colors.black,
-                  thumbColor: MaterialStatePropertyAll(
-                      theme.isDark ? Colors.white : Colors.white),
-                  activeColor: Colors.black,
-                  value: theme.isDark,
-                  onChanged: (value) {
-                    theme.changeTheme();
-                  },
-                );
-              },
-            ),
+            // trailing: Consumer<Themeprovider1>(
+            //   builder: (context, theme, child) {
+            //     return Switch(
+            //       inactiveTrackColor: Colors.black,
+            //       thumbColor: MaterialStatePropertyAll(
+            //           theme.isDark ? Colors.white : Colors.white),
+            //       activeColor: Colors.black,
+            //       value: theme.isDark,
+            //       onChanged: (value) {
+            //         theme.changeTheme();
+            //       },
+            //     );
+            //   },
+            // ),
           ),
           ListTile(
             title: Text("Theme"),
-            trailing: Consumer<Themeprovider>(
-              builder: (context, theme, child) => DropdownButton(
-                items: [
-                  DropdownMenuItem(
-                    child: Text(
-                      "Light",
-                      style: TextStyle(color: Colors.black),
+            trailing: Consumer<Themeprovider1>(
+              builder: (BuildContext context, theme, Widget? child) {
+                return DropdownButton(
+                  items: [
+                    DropdownMenuItem(
+                      child: Text(
+                        "Light Mode",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      onTap: () =>
+                          context.read<Themeprovider1>().setTheme('light'),
+                      value: 0,
                     ),
-                    value: 0,
-                    onTap: () {
-                      theme.light();
-                    },
-                  ),
-                  DropdownMenuItem(
-                    child: Text(
-                      "Dark",
-                      style: TextStyle(color: Colors.black),
+                    DropdownMenuItem(
+                      child: Text(
+                        "Dark Mode",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      onTap: () =>
+                          context.read<Themeprovider1>().setTheme('dark'),
+                      value: 1,
                     ),
-                    onTap: () {
-                      theme.dark();
-                    },
-                    value: 1,
+                    DropdownMenuItem(
+                      child: Text(
+                        "System",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      onTap: () =>
+                          context.read<Themeprovider1>().setTheme('system'),
+                      value: 2,
+                    ),
+                  ],
+                  value: theme.selectedthem,
+                  hint: Text(
+                    "Selected Theme",
+                    style: TextStyle(color: Colors.black),
                   ),
-                ],
-                value: theme.dropdown,
-                onChanged: (value) {
-                  theme.dropdown = value;
-
-                  theme.light();
-                  theme.dark();
-                },
-                hint: Text(
-                  "Select Theme",
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
+                  onChanged: (value) {
+                    theme.selectedthem = value;
+                    // theme.getTheme();
+                  },
+                );
+              },
             ),
           ),
         ],
@@ -84,3 +91,39 @@ class _SettingsState extends State<Settings> {
     );
   }
 }
+/*
+
+ Consumer<Themeprovider1>(
+              builder: (context, theme, child) => DropdownButton<AppTheme>(
+                items: AppTheme.values.map(
+                  (theme) {
+                    var tm = Provider.of<Themeprovider1>(context, listen: false)
+                            .themeData ==
+                        AppTheme.dark;
+                    return DropdownMenuItem<AppTheme>(
+                      value: theme,
+                      child: Text(
+                        // theme.toString().split(".").last,
+                        theme.name,
+                        style: TextStyle(
+                          color: tm ? Colors.white : Colors.black,
+                        ),
+                      ),
+                    );
+                  },
+                ).toList(),
+                value: Provider.of<Themeprovider1>(context, listen: false)
+                    .themeData,
+                onChanged: (value) {
+                  Provider.of<Themeprovider1>(context, listen: false)
+                      .setTheme(value!);
+                },
+                hint: Text(
+                  "Select Theme",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+
+
+ */
