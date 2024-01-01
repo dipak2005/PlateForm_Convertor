@@ -1,13 +1,18 @@
+import 'dart:io';
+
+import 'package:contact_dairy/controller/contactlist_provider.dart';
+import 'package:contact_dairy/view/android/add_contacts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../controller/contact_provider.dart';
-import '../model/contact_model.dart';
+import '../../controller/contact_provider.dart';
+import '../../model/contact_model.dart';
 
 class ShowDetails extends StatefulWidget {
   ContactModel? contact;
+  final int? index;
 
-  ShowDetails({Key? key, this.contact}) : super(key: key);
+  ShowDetails({Key? key, this.contact, this.index}) : super(key: key);
 
   @override
   State<ShowDetails> createState() => _ShowDetailsState();
@@ -21,6 +26,7 @@ class _ShowDetailsState extends State<ShowDetails> {
         ModalRoute.of(context)?.settings.arguments as ContactModel?;
     widget.contact = arguments;
     print("hii${widget.contact?.name ?? ""}");
+
   }
 
   Widget build(BuildContext context) {
@@ -33,10 +39,40 @@ class _ShowDetailsState extends State<ShowDetails> {
           icon: Icon(Icons.arrow_back_sharp),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.more_vert_sharp),
-          ),
+          PopupMenuButton(
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return AddContact(
+                            index: Provider.of<ContactListProvider>(
+                              context,
+                            ).contactlist.length,
+                          );
+                        },
+                      ));
+                    },
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                PopupMenuItem(
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ];
+            },
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -44,15 +80,22 @@ class _ShowDetailsState extends State<ShowDetails> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Align(
-              alignment: Alignment(-0.9, 0),
-              child: CircleAvatar(
-                radius: 70,
-                child: Icon(
-                  Icons.person,
-                  size: 70,
-                ),
-              ),
-            ),
+                alignment: Alignment(-0.9, 0),
+                child: CircleAvatar(
+                  radius: 70,
+                  child: Provider.of<ContactProvider>(context).filepath == null
+                      ? Icon(
+                          Icons.person,
+                          size: 70,
+                          color: Colors.white,
+                        )
+                      : CircleAvatar(
+                          radius: 70,
+                          backgroundImage: FileImage(
+                            File(widget.contact?.filepath ?? ""),
+                          ),
+                        ),
+                )),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.01,
             ),

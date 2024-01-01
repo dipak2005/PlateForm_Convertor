@@ -18,7 +18,8 @@ class _SettingsState extends State<Settings> {
       appBar: AppBar(
         title: Text("Settings"),
       ),
-      body: Column(
+      body:
+      Column(
         children: [
           ListTile(
             title: Text(
@@ -41,7 +42,7 @@ class _SettingsState extends State<Settings> {
           ),
           ListTile(
             title: Text("Theme"),
-            trailing: Consumer<Themeprovider1>(
+            trailing: Consumer<ThemeProvider>(
               builder: (BuildContext context, theme, Widget? child) {
                 return DropdownButton(
                   items: [
@@ -50,36 +51,32 @@ class _SettingsState extends State<Settings> {
                         "Light Mode",
                         style: TextStyle(color: Colors.black),
                       ),
-                      onTap: () =>
-                          context.read<Themeprovider1>().setTheme('light'),
-                      value: 0,
+                      value: 'light',
                     ),
                     DropdownMenuItem(
                       child: Text(
                         "Dark Mode",
                         style: TextStyle(color: Colors.black),
                       ),
-                      onTap: () =>
-                          context.read<Themeprovider1>().setTheme('dark'),
-                      value: 1,
+                      value: 'dark',
                     ),
                     DropdownMenuItem(
                       child: Text(
                         "System",
                         style: TextStyle(color: Colors.black),
                       ),
-                      onTap: () =>
-                          context.read<Themeprovider1>().setTheme('system'),
-                      value: 2,
+                      value: 'system',
                     ),
                   ],
-                  value: theme.selectedthem,
+                  value: theme.currnettheme,
                   hint: Text(
                     "Selected Theme",
                     style: TextStyle(color: Colors.black),
                   ),
-                  onChanged: (value) {
-                    theme.selectedthem = value;
+                  onChanged: (String? value) {
+                    // theme.currnettheme = value!;
+                    theme.settheme(value??'system');
+
                     // theme.getTheme();
                   },
                 );

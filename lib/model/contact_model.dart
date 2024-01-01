@@ -4,6 +4,6 @@ class ContactModel{
   String? name;
   String? email;
   String? number;
-  XFile? xFile;
-  ContactModel({this.name, this.email, this.number, this.xFile});
+  String? filepath;
+  ContactModel({this.name, this.email, this.number, this.filepath});
 }

@@ -4,13 +4,17 @@ import 'package:image_picker/image_picker.dart';
 
 class ContactListProvider extends ChangeNotifier {
   List<ContactModel> contactlist = [];
-  XFile? xFile;
-  ImagePicker image = ImagePicker();
+
+  // ImagePicker image = ImagePicker();
 
   void add(ContactModel contact) {
     contactlist.add(contact);
     notifyListeners();
   }
+
+
+
+
 
   void remove(int i) {
     contactlist.removeAt(i);
@@ -22,21 +26,4 @@ class ContactListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void steppercamera() {
-    image.pickImage(source: ImageSource.camera).then(
-      (value) {
-        xFile = value;
-        notifyListeners();
-      },
-    );
-  }
-
-  void steppergallery() {
-    image.pickImage(source: ImageSource.gallery).then(
-      (value) {
-        xFile = value;
-        notifyListeners();
-      },
-    );
-  }
 }

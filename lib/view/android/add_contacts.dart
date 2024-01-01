@@ -5,7 +5,6 @@ import 'package:contact_dairy/controller/contactlist_provider.dart';
 import 'package:contact_dairy/model/contact_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class AddContact extends StatefulWidget {
@@ -48,7 +47,6 @@ class _AddContactState extends State<AddContact> {
         ),
         title: Text(
           title,
-          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       body: Consumer<ContactProvider>(
@@ -62,19 +60,19 @@ class _AddContactState extends State<AddContact> {
                       backgroundColor: Colors.blue,
                       child: IconButton(
                         onPressed: () {
-                          contact.steppercamera();
+                          contact.pickImage(true);
                         },
                         icon: Icon(
                           Icons.person,
-                          color: contact.xFile == null
+                          color: contact.filepath == null
                               ? Colors.white
                               : Colors.transparent,
                           size: 30,
                         ),
                       ),
                       radius: 60,
-                      backgroundImage: contact.xFile != null
-                          ? FileImage(File(contact.xFile?.path ?? ""))
+                      backgroundImage: contact.filepath != null
+                          ? FileImage(File(contact.filepath ?? ""))
                           : null,
                     ),
                   ],
@@ -220,7 +218,7 @@ class _AddContactState extends State<AddContact> {
             ContactModel cm = ContactModel(
                 number: cp.phonecontroller.text,
                 email: cp.emailcontroller.text,
-                xFile: cp.xFile,
+                filepath: cp.filepath,
                 name: cp.namecontroller.text);
 
             if (widget.index != null) {
