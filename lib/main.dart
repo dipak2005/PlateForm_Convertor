@@ -1,3 +1,4 @@
+import 'package:contact_dairy/controller/bottonbarprovider.dart';
 import 'package:contact_dairy/controller/contact_provider.dart';
 import 'package:contact_dairy/controller/contactlist_provider.dart';
 import 'package:contact_dairy/controller/pageprovider.dart';
@@ -6,7 +7,7 @@ import 'package:contact_dairy/controller/theme_provider.dart';
 import 'package:contact_dairy/view/android/add_contacts.dart';
 import 'package:contact_dairy/view/android/details.dart';
 import 'package:contact_dairy/view/android/homepage.dart';
-import 'package:contact_dairy/view/android/settings.dart';
+import 'package:contact_dairy/view/android/indexstack/settings.dart';
 import 'package:contact_dairy/view/ios/home.dart';
 import 'package:contact_dairy/view/ios/nextpage.dart';
 import 'package:contact_dairy/view/ios/profile.dart';
@@ -49,12 +50,15 @@ class Myapp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => PlateFormCovter(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => BottomBar(),
+        ),
       ],
       builder: (context, child) {
         return Consumer<ThemeProvider>(
           builder: (BuildContext context, theme, Widget? child) {
-            var android = Provider.of<PlateFormCovter>(context).isIos;
-            if (android) {
+            var ios = Provider.of<PlateFormCovter>(context).isIos;
+            if (ios) {
               return MaterialApp(
                 initialRoute: "/",
                 debugShowCheckedModeBanner: false,
@@ -69,15 +73,21 @@ class Myapp extends StatelessWidget {
                 },
               );
             } else {
-              return CupertinoApp(
-                initialRoute: '/',
-                debugShowCheckedModeBanner: false,
-                // theme: MaterialBasedCupertinoThemeData(materialTheme: ThemeData.dark()),
-                // home: Home(),
-                routes: {
-                  "/": (p0) => Home(),
-                  "Profile": (p0) => Profile(),
-                  "NextPage": (p0) => NextPage(),
+              return Consumer<ThemeProvider>(
+                builder: (BuildContext context, theme, Widget? child) {
+                  return CupertinoApp(
+                    initialRoute: '/',
+                    debugShowCheckedModeBanner: false,
+                    theme: CupertinoThemeData(
+                        brightness:
+                            theme.isDark ? Brightness.dark : Brightness.light),
+                    // home: Home(),
+                    routes: {
+                      "/": (p0) => Home(),
+                      "Profile": (p0) => Profile(),
+                      "NextPage": (p0) => NextPage(),
+                    },
+                  );
                 },
               );
             }

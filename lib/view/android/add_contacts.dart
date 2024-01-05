@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:contact_dairy/controller/contact_provider.dart';
 import 'package:contact_dairy/controller/contactlist_provider.dart';
+import 'package:contact_dairy/main.dart';
 import 'package:contact_dairy/model/contact_model.dart';
+import 'package:contact_dairy/view/android/indexstack/contactlist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -211,7 +213,7 @@ class _AddContactState extends State<AddContact> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           var cp = Provider.of<ContactProvider>(context, listen: false);
 
           if (cp.gkey.currentState?.validate() ?? false) {
@@ -219,14 +221,14 @@ class _AddContactState extends State<AddContact> {
                 number: cp.phonecontroller.text,
                 email: cp.emailcontroller.text,
                 filepath: cp.filepath,
-                name: cp.namecontroller.text);
+                name: cp.namecontroller.text,
+               );
 
             if (widget.index != null) {
               Provider.of<ContactListProvider>(context, listen: false)
                   .edit(widget.index!, cm);
             } else {
               Provider.of<ContactListProvider>(context, listen: false).add(cm);
-              // print(" my name is dipak${widget.index}");
             }
 
             Provider.of<ContactProvider>(context, listen: false).reset();

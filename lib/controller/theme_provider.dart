@@ -1,11 +1,23 @@
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider extends ChangeNotifier {
   String currnettheme = "system";
+  bool isDark = false;
 
-  ThemeMode get  thememode {
+  void iosTheme() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setBool("theme", isDark);
+    isDark = !isDark;
+    notifyListeners();
+  }
+
+  void getIos() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+          var iosthme = preferences.getBool("theme");
+  }
+
+  ThemeMode get thememode {
     if (currnettheme == 'light') {
       return ThemeMode.light;
     } else if (currnettheme == 'dark') {

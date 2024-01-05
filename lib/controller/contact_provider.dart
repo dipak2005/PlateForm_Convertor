@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ContactProvider extends ChangeNotifier {
@@ -11,26 +12,20 @@ class ContactProvider extends ChangeNotifier {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController phonecontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
+  TextEditingController chatcontroller = TextEditingController();
   GlobalKey<FormState> gkey = GlobalKey<FormState>();
+  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  GlobalKey<FormState> ioseditlKey = GlobalKey<FormState>();
+  GlobalKey<FormState> iosKey = GlobalKey<FormState>();
   int cindex = 0;
+  DateTime? Date;
+  TimeOfDay? Time;
+  DateTime? datetime = DateTime.now();
 
   void pickImage(bool isCamera) async {
     XFile? file = await ImagePicker()
         .pickImage(source: isCamera ? ImageSource.camera : ImageSource.gallery);
     filepath = file?.path;
-    notifyListeners();
-  }
-
-  setContact(String filepath) async {
-    final SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString("image", filepath ?? "");
-    contact = filepath ?? "";
-    notifyListeners();
-  }
-
-  getContact() async {
-    final SharedPreferences preferences = await SharedPreferences.getInstance();
-    contact = preferences.getString("image");
     notifyListeners();
   }
 
@@ -57,6 +52,11 @@ class ContactProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changedata(DateTime dateTime) {
+    this.datetime = datetime;
+    notifyListeners();
+  }
+
   // void steppercamera() {
   //   image.pickImage(source: ImageSource.camera).then(
   //     (value) {
@@ -79,7 +79,12 @@ class ContactProvider extends ChangeNotifier {
     namecontroller.clear();
     emailcontroller.clear();
     phonecontroller.clear();
-    filepath?.trim();
+    chatcontroller.clear();
+    filepath = null;
     cindex = 0;
+    Time = null;
+    Date = null;
+    datetime = null;
+    notifyListeners();
   }
 }

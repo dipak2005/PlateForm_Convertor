@@ -41,6 +41,7 @@ dependencies:
   share_plus: ^7.2.1
   url_launcher: ^6.2.2
   local_auth: ^2.1.7
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

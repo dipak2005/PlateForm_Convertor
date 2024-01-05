@@ -15,11 +15,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Settings"),
-      ),
-      body:
-      Column(
+      body: Column(
         children: [
           ListTile(
             title: Text(
@@ -75,7 +71,7 @@ class _SettingsState extends State<Settings> {
                   ),
                   onChanged: (String? value) {
                     // theme.currnettheme = value!;
-                    theme.settheme(value??'system');
+                    theme.settheme(value ?? 'system');
 
                     // theme.getTheme();
                   },

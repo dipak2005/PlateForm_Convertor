@@ -16,8 +16,8 @@ class ContactListProvider extends ChangeNotifier {
 
 
 
-  void remove(int i) {
-    contactlist.removeAt(i);
+  void remove(int index) {
+    contactlist.removeAt(index);
     notifyListeners();
   }
 

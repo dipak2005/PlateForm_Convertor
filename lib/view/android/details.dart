@@ -4,6 +4,7 @@ import 'package:contact_dairy/controller/contactlist_provider.dart';
 import 'package:contact_dairy/view/android/add_contacts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/contact_provider.dart';
 import '../../model/contact_model.dart';
@@ -137,7 +138,11 @@ class _ShowDetailsState extends State<ShowDetails> {
                   CircleAvatar(
                     backgroundColor: Colors.green,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        var uri = Uri.parse(
+                            "tel:+91${widget.contact?.number ?? ""}");
+                        launchUrl(uri);
+                      },
                       icon: Icon(Icons.call, color: Colors.white),
                     ),
                   ),
