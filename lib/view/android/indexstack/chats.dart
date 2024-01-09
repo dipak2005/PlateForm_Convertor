@@ -22,7 +22,7 @@ class _ChatsState extends State<Chats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Provider.of<ContactProvider>(context).chatcontroller != null
+      body: Provider.of<ContactListProvider>(context).contactlist.isNotEmpty
           ? Column(
               children: [
                 Consumer<ContactListProvider>(
@@ -41,6 +41,7 @@ class _ChatsState extends State<Chats> {
                                 context: context,
                                 builder: (context) {
                                   return Container(
+                                    // ignore: prefer_const_constructors
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius:
@@ -212,9 +213,23 @@ class _ChatsState extends State<Chats> {
                 Center(
                   child: Container(
                     height: MediaQuery.sizeOf(context).height * 0.76,
-                    child: Text(
-                      "NO ANY CHATS YET...!",
-                      style: TextStyle(color: Colors.black),
+                    width: MediaQuery.sizeOf(context).width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.wechat_sharp,
+                          color: Colors.blueAccent,
+                          size: 30,
+                        ),
+                        Center(
+                          child: Text(
+                            "NO ANY CHATS YET...!",
+                            style: TextStyle(
+                                color: Colors.blueAccent, fontSize: 30),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

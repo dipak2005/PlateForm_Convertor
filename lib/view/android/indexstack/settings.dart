@@ -4,6 +4,7 @@ import 'package:contact_dairy/controller/contact_provider.dart';
 import 'package:contact_dairy/controller/pageprovider.dart';
 import 'package:contact_dairy/controller/plateformconvter.dart';
 import 'package:contact_dairy/controller/theme_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,177 +22,181 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text("Settings"),
-      ),
-      body:
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // ListTile(
-          //   title: Text(
-          //     "Dark Mode",
-          //   ),
-          // trailing: Consumer<Themeprovider1>(
-          //   builder: (context, theme, child) {
-          //     return Switch(
-          //       inactiveTrackColor: Colors.black,
-          //       thumbColor: MaterialStatePropertyAll(
-          //           theme.isDark ? Colors.white : Colors.white),
-          //       activeColor: Colors.black,
-          //       value: theme.isDark,
-          //       onChanged: (value) {
-          //         theme.changeTheme();
-          //       },
-          //     );
-          //   },
-          // ),
-          // ),
-          ListTile(
-            leading: Text(
-              "Profile",
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                  fontSize: 20),
-            ),
-            trailing: Consumer<PlateFormCovter>(
-              builder: (BuildContext context, pa, Widget? child) {
-                return Switch(
-                  autofocus: true,
-                  value: pa.ispro,
-                  activeTrackColor: Colors.black38,
-                  activeColor: Colors.white,
-                  inactiveTrackColor: Colors.black38,
-                  inactiveThumbColor: Colors.white,
-                  onChanged: (value) {
-                    pa.Pro();
-                  },
-                );
-              },
-            ),
-          ),
-          if (Provider.of<PlateFormCovter>(context).ispro)
-            Container(
-              height: MediaQuery.sizeOf(context).height * 0.4,
-              width: MediaQuery.sizeOf(context).width,
-              child: SingleChildScrollView(
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.blue,
-                      child: IconButton(
-                        onPressed: () {
-                          Provider.of<ContactProvider>(context,listen: false).pickImage(true);
-                        },
-                        icon: Icon(
-                          Icons.person,
-                          color:
-                              Provider.of<ContactProvider>(context,listen: false).filepath ==
-                                      null
-                                  ? Colors.white
-                                  : Colors.transparent,
-                          size: 30,
-                        ),
-                      ),
-                      radius: 60,
-                      backgroundImage:
-                          Provider.of<ContactProvider>(context).filepath != null
-                              ? FileImage(File(
-                                  Provider.of<ContactProvider>(context)
-                                          .filepath ??
-                                      ""))
-                              : null,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.sizeOf(context).width / 3),
-                      child: TextFormField(
-                        keyboardType: TextInputType.name,
-                        cursorColor: Colors.blueAccent,
-                        decoration:
-                            InputDecoration(hintText: "Enter Your Name...",),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.sizeOf(context).width / 3),
-                      child: TextFormField(
-                        keyboardType: TextInputType.name,
-                        cursorColor: Colors.blueAccent,
-                        decoration:
-                            InputDecoration(hintText: "Enter Your Bio..."),
-                      ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Save",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Cancel",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: Icon(Icons.person_2_outlined),
+              title: Text(
+                "Profile",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontSize: 20),
+              ),
+              trailing: Consumer<PlateFormCovter>(
+                builder: (BuildContext context, pa, Widget? child) {
+                  return Switch(
+                    autofocus: true,
+                    value: pa.ispro,
+                    activeTrackColor: Colors.black38,
+                    activeColor: Colors.white,
+                    inactiveTrackColor: Colors.black38,
+                    inactiveThumbColor: Colors.white,
+                    onChanged: (value) {
+                      pa.Pro();
+                    },
+                  );
+                },
               ),
             ),
-          ListTile(
-            title: Text("Theme"),
-            trailing: Consumer<ThemeProvider>(
-              builder: (BuildContext context, theme, Widget? child) {
-                return DropdownButton(
-                  items: [
-                    DropdownMenuItem(
-                      child: Text(
-                        "Light Mode",
-                        style: TextStyle(color: Colors.black),
+            if (Provider.of<PlateFormCovter>(context).ispro)
+              Container(
+                height: MediaQuery.sizeOf(context).height * 0.4,
+                width: MediaQuery.sizeOf(context).width,
+                child: SingleChildScrollView(
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.blue,
+                        child: IconButton(
+                          onPressed: () {
+                            Provider.of<ContactProvider>(context, listen: false)
+                                .pickImage(true);
+                          },
+                          icon: Icon(
+                            Icons.person,
+                            color: Provider.of<ContactProvider>(context,
+                                            listen: false)
+                                        .filepath ==
+                                    null
+                                ? Colors.white
+                                : Colors.transparent,
+                            size: 30,
+                          ),
+                        ),
+                        radius: 60,
+                        backgroundImage:
+                            Provider.of<ContactProvider>(context).filepath !=
+                                    null
+                                ? FileImage(File(
+                                    Provider.of<ContactProvider>(context)
+                                            .filepath ??
+                                        ""))
+                                : null,
                       ),
-                      value: 'light',
-                    ),
-                    DropdownMenuItem(
-                      child: Text(
-                        "Dark Mode",
-                        style: TextStyle(color: Colors.black),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.sizeOf(context).width / 3),
+                        child: TextFormField(
+                          keyboardType: TextInputType.name,
+                          cursorColor: Colors.blueAccent,
+                          decoration: InputDecoration(
+                            hintText: "Enter Your Name...",
+                          ),
+                        ),
                       ),
-                      value: 'dark',
-                    ),
-                    DropdownMenuItem(
-                      child: Text(
-                        "System",
-                        style: TextStyle(color: Colors.black),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.sizeOf(context).width / 3),
+                        child: TextFormField(
+                          keyboardType: TextInputType.name,
+                          cursorColor: Colors.blueAccent,
+                          decoration:
+                              InputDecoration(hintText: "Enter Your Bio..."),
+                        ),
                       ),
-                      value: 'system',
-                    ),
-                  ],
-                  value: theme.currnettheme,
-                  hint: Text(
-                    "Selected Theme",
-                    style: TextStyle(color: Colors.black),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Save",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  onChanged: (String? value) {
-                    // theme.currnettheme = value!;
-                    theme.settheme(value ?? 'system');
+                ),
+              ),
+            Consumer<ThemeProvider>(
+              builder: (context, theme, child) {
+                return ListTile(
+                  title: Text("Theme Mode"),
+                  leading: Icon(Icons.light),
+                  trailing: Consumer<ThemeProvider>(
+                    builder: (BuildContext context, theme, child) {
+                      return DropdownButton(
+                        items: const [
+                          DropdownMenuItem(
+                            child: Row(
+                              children: [
+                                Icon(Icons.phone_android_outlined),
+                                Text(
+                                  "System",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            ),
+                            value: 0,
+                          ),
+                          DropdownMenuItem(
+                            child: Row(
+                              children: [
+                                Icon(Icons.light_mode_rounded),
+                                Text(
+                                  "Light Mode",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            ),
+                            value: 1,
+                          ),
+                          DropdownMenuItem(
+                            child: Row(
+                              children: [
+                                Icon(Icons.dark_mode),
+                                Text(
+                                  "Dark Mode",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            ),
+                            value: 2,
+                          ),
+                        ],
+                        value: theme.currnettheme,
+                        hint: Text(
+                          "Selected Theme",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        onChanged: (int? value) {
+                          // theme.currnettheme = value!;
+                          theme.settheme(value ?? 0);
 
-                    // theme.getTheme();
-                  },
+                          // theme.getTheme();
+                        },
+                      );
+                    },
+                  ),
                 );
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -44,6 +44,7 @@ class _IoseditState extends State<Iosedit> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
+      resizeToAvoidBottomInset: false,
       navigationBar: widget.index != null
           ? CupertinoNavigationBar(
               leading: CupertinoButton(
@@ -83,7 +84,7 @@ class _IoseditState extends State<Iosedit> {
                         builder:
                             (BuildContext context, contact, Widget? child) {
                           return Form(
-                            key: contact.ioseditlKey,
+                            key: contact.iosKey,
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [
@@ -243,7 +244,7 @@ class _IoseditState extends State<Iosedit> {
                                         var cp = Provider.of<ContactProvider>(
                                             context,
                                             listen: false);
-                                        if (cp.globalKey.currentState
+                                        if (cp.iosKey.currentState
                                                 ?.validate() ??
                                             false) {
                                           ContactModel cm = ContactModel(

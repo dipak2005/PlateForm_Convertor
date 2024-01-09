@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../controller/contact_provider.dart';
 import '../../../controller/contactlist_provider.dart';
+import '../../../controller/theme_provider.dart';
 import '../../../model/contact_model.dart';
 import '../add_contacts.dart';
 import '../details.dart';
@@ -61,14 +62,14 @@ class _ContactlistState extends State<Contactlist> {
                     height: MediaQuery.sizeOf(context).height * 0.7,
                     width: MediaQuery.sizeOf(context).width * 0.9,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      // color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey,
-                            spreadRadius: 1,
-                            blurRadius: 15),
-                      ],
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //       color: Colors.grey,
+                      //       spreadRadius: 1,
+                      //       blurRadius: 15),
+                      // ],
                     ),
                     child: Consumer<ContactProvider>(
                       builder: (BuildContext context, contact, Widget? child) {
@@ -78,25 +79,25 @@ class _ContactlistState extends State<Contactlist> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: InkWell(
-                                  onTap: () {
-                                    contact.pickImage(true);
-                                  },
-                                  child: CircleAvatar(
-                                    minRadius: 50,
-                                    backgroundImage: contact.filepath != null
-                                        ? FileImage(
-                                            File(
-                                                contactprovider.filepath ?? ""),
-                                          )
-                                        : null,
-                                    child: contactprovider.filepath == null
-                                        ? Icon(
+                                child: CircleAvatar(
+                                  minRadius: 50,
+                                  backgroundImage: contact.filepath != null
+                                      ? FileImage(
+                                          File(
+                                              contactprovider.filepath ?? ""),
+                                        )
+                                      : null,
+                                  child: contactprovider.filepath == null
+                                      ? IconButton(
+                                        onPressed: () { 
+                                          contact.pickImage(true);
+                                        },
+                                        icon: Icon(
                                             Icons.add_a_photo_outlined,
                                             size: 30,
-                                          )
-                                        : null,
-                                  ),
+                                          ),
+                                      )
+                                      : null,
                                 ),
                               ),
                               Padding(
@@ -113,6 +114,8 @@ class _ContactlistState extends State<Contactlist> {
                                   controller: contact.namecontroller,
                                   keyboardType: TextInputType.name,
                                   decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.transparent,
                                     prefixIcon: Icon(Icons.person),
                                     hintText: "Full Name",
                                     border: OutlineInputBorder(
@@ -137,6 +140,8 @@ class _ContactlistState extends State<Contactlist> {
                                   controller: contact.phonecontroller,
                                   keyboardType: TextInputType.phone,
                                   decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.transparent,
                                     prefixIcon: Icon(Icons.phone),
                                     hintText: "Phone Number",
                                     border: OutlineInputBorder(
@@ -157,6 +162,8 @@ class _ContactlistState extends State<Contactlist> {
                                   },
                                   controller: contact.chatcontroller,
                                   decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.transparent,
                                     prefixIcon: Icon(Icons.wechat_sharp),
                                     hintText: "Bio",
                                     border: OutlineInputBorder(
@@ -166,13 +173,13 @@ class _ContactlistState extends State<Contactlist> {
                                 ),
                               ),
                               Consumer<ContactProvider>(
-                                builder: (BuildContext context, data,
-                                    Widget? child) {
+                                builder:
+                                    (BuildContext context, cl, Widget? child) {
                                   return Padding(
-                                    padding: EdgeInsets.only(right: 200),
+                                    padding: EdgeInsets.only(right: 210),
                                     child: TextButton(
                                       onPressed: () async {
-                                        data.Date = await showDatePicker(
+                                        cl.Date = await showDatePicker(
                                           context: context,
                                           initialDate: DateTime(
                                             2024,
@@ -187,8 +194,8 @@ class _ContactlistState extends State<Contactlist> {
                                               DatePickerEntryMode.calendar,
                                         );
 
-                                        // setState(() {});
-                                        data.changedata(data.datetime!);
+                                        // cl.changedata(cl.datetime!);
+                                        cl.refresh();
                                       },
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
@@ -196,15 +203,15 @@ class _ContactlistState extends State<Contactlist> {
                                           Icon(
                                             Icons.calendar_month,
                                           ),
-                                          data.Date == null
+                                          cl.Date == null
                                               ? Text(
                                                   "Pick Date",
                                                   style: TextStyle(
-                                                      color: Colors.black54),
+                                                      color: Colors.blueAccent),
                                                 )
                                               : Text(
                                                   // format.format(data.datetime)
-                                                  "${data.Date?.day}/${data.Date?.month}/${data.Date?.year}"),
+                                                  "${cl.Date?.day}/${cl.Date?.month}/${cl.Date?.year}"),
                                         ],
                                       ),
                                     ),
@@ -240,7 +247,7 @@ class _ContactlistState extends State<Contactlist> {
                                               ? Text(
                                                   "Pick Time",
                                                   style: TextStyle(
-                                                      color: Colors.black54),
+                                                      color: Colors.blueAccent),
                                                 )
                                               : Text(
                                                   "${time.Time?.hour}:${time.Time?.minute}")
@@ -250,61 +257,57 @@ class _ContactlistState extends State<Contactlist> {
                                   );
                                 },
                               ),
-                              Container(
-                                height: 40,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: 1,
-                                        blurRadius: 15),
-                                  ],
-                                ),
-                                child: TextButton(
-                                  onPressed: () {
-                                    var cp = Provider.of<ContactProvider>(
-                                        context,
-                                        listen: false);
-                                    if (cp.globalKey.currentState?.validate() ??
-                                        false) {
-                                      ContactModel cm = ContactModel(
-                                          number: cp.phonecontroller.text,
-                                          email: cp.emailcontroller.text,
-                                          filepath: cp.filepath,
-                                          name: cp.namecontroller.text,
-                                          chats: cp.chatcontroller.text,
-                                          date: cp.Date,
-                                          time: cp.Time);
-
-                                      if (widget.index != null) {
-                                        Provider.of<ContactListProvider>(
-                                                context,
-                                                listen: false)
-                                            .edit(widget.index!, cm);
-                                        Navigator.pop(context);
-                                        cp.reset();
-                                      } else {
-                                        Provider.of<ContactListProvider>(
-                                                context,
-                                                listen: false)
-                                            .add(cm);
-                                      }
-
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Chats(),
-                                          ));
-                                      cp.reset();
-                                    }
-                                  },
-                                  child: Text(
-                                    title,
-                                    style: TextStyle(color: Colors.black54),
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStatePropertyAll(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
                                   ),
+                                  fixedSize: MaterialStatePropertyAll(
+                                    Size(
+                                        MediaQuery.sizeOf(context).width * 0.27,
+                                        MediaQuery.sizeOf(context).height *
+                                            0.05),
+                                  ),
+                                  backgroundColor: MaterialStatePropertyAll(
+                                      Colors.blueAccent),
+                                ),
+                                onPressed: () {
+                                  var cp = Provider.of<ContactProvider>(context,
+                                      listen: false);
+                                  if (cp.globalKey.currentState?.validate() ??
+                                      false) {
+                                    ContactModel cm = ContactModel(
+                                        number: cp.phonecontroller.text,
+                                        email: cp.emailcontroller.text,
+                                        filepath: cp.filepath,
+                                        name: cp.namecontroller.text,
+                                        chats: cp.chatcontroller.text,
+                                        date: cp.Date,
+                                        time: cp.Time);
+
+                                    if (widget.index != null) {
+                                      Provider.of<ContactListProvider>(context,
+                                              listen: false)
+                                          .edit(widget.index!, cm);
+                                      Navigator.pop(context);
+                                      cp.reset();
+                                    } else {
+                                      Provider.of<ContactListProvider>(context,
+                                              listen: false)
+                                          .add(cm);
+                                    }
+
+                                    cp.reset();
+                                  }
+                                },
+                                child: Text(
+                                  title,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
                                 ),
                               )
                             ],
@@ -317,6 +320,18 @@ class _ContactlistState extends State<Contactlist> {
               }),
             ),
           ],
+        ),
+      ),
+      floatingActionButton: Consumer<ThemeProvider>(
+        builder: (context, theme, child) => FloatingActionButton(
+          backgroundColor: Colors.blue,
+          onPressed: () async {
+            await Navigator.pushNamed(
+              context,
+              "AddContact",
+            );
+          },
+          child: Icon(Icons.add, color: Colors.white),
         ),
       ),
     );

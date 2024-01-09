@@ -1,9 +1,16 @@
+
+
+import 'package:contact_dairy/model/contact_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ContactProvider extends ChangeNotifier {
+
+
+
+
   bool isEdit = false;
   bool isEdit1 = false;
   bool isEdit2 = false;
@@ -15,7 +22,7 @@ class ContactProvider extends ChangeNotifier {
   TextEditingController chatcontroller = TextEditingController();
   GlobalKey<FormState> gkey = GlobalKey<FormState>();
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
-  GlobalKey<FormState> ioseditlKey = GlobalKey<FormState>();
+  GlobalKey<FormState> iosEditKey = GlobalKey<FormState>();
   GlobalKey<FormState> iosKey = GlobalKey<FormState>();
   int cindex = 0;
   DateTime? Date;
@@ -25,9 +32,11 @@ class ContactProvider extends ChangeNotifier {
   void pickImage(bool isCamera) async {
     XFile? file = await ImagePicker()
         .pickImage(source: isCamera ? ImageSource.camera : ImageSource.gallery);
-    filepath = file?.path;
+   filepath = file?.path;
     notifyListeners();
   }
+
+
 
   void refresh() {
     notifyListeners();
@@ -56,24 +65,6 @@ class ContactProvider extends ChangeNotifier {
     this.datetime = datetime;
     notifyListeners();
   }
-
-  // void steppercamera() {
-  //   image.pickImage(source: ImageSource.camera).then(
-  //     (value) {
-  //       xFile = value;
-  //       notifyListeners();
-  //     },
-  //   );
-  // }
-  //
-  // void steppergallery() {
-  //   image.pickImage(source: ImageSource.gallery).then(
-  //     (value) {
-  //       xFile = value;
-  //       notifyListeners();
-  //     },
-  //   );
-  // }
 
   void reset() {
     namecontroller.clear();

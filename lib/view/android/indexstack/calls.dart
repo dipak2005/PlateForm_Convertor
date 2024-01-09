@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
+// import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -175,7 +176,11 @@ class _CallsState extends State<Calls> {
                                               backgroundColor:
                                                   Colors.blueAccent,
                                               child: IconButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  // var uri = Uri.parse(
+                                                  //     "https://call.whatsapp.com/video/9AUFTy6B0vUMOislx1kiBa");
+                                                  // launchUrl(uri);
+                                                },
                                                 icon: Icon(
                                                   Icons.videocam_sharp,
                                                   color: Colors.white,
@@ -190,9 +195,17 @@ class _CallsState extends State<Calls> {
                                                   fontWeight: FontWeight.w700,
                                                   fontSize: 20),
                                             ),
-                                            trailing: Image.asset(
-                                              "assets/whatsapp.png",
-                                              color: Colors.green,
+                                            trailing: InkWell(
+                                              onTap: () {
+                                                var uri = Uri.parse(
+                                                    "https://api.whatsapp.com/send/?phone=${cl.number}&text&type=phone_number&app_absent=0");
+
+                                                launchUrl(uri);
+                                              },
+                                              child: Image.asset(
+                                                "assets/whatsapp.png",
+                                                color: Colors.green,
+                                              ),
                                             ),
                                           ),
                                           Align(
@@ -365,9 +378,22 @@ class _CallsState extends State<Calls> {
                 Center(
                   child: Container(
                     height: MediaQuery.sizeOf(context).height * 0.76,
-                    child: Text(
-                      "NO ANY CALLS YET...!",
-                      style: TextStyle(color: Colors.black),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.phone,
+                          color: Colors.blueAccent,
+                          size: 30,
+                        ),
+                        Center(
+                          child: Text(
+                            "NO ANY Calls YET...!",
+                            style: TextStyle(
+                                color: Colors.blueAccent, fontSize: 30),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

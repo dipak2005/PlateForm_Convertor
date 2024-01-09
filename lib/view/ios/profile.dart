@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../controller/contact_provider.dart';
 import '../../controller/contactlist_provider.dart';
 import '../../controller/pageprovider.dart';
+import '../../controller/plateformconvter.dart';
 import '../../model/contact_model.dart';
 import '../android/indexstack/calls.dart';
 import '../android/indexstack/chats.dart';
@@ -55,20 +56,20 @@ class _ProfileState extends State<Profile> {
                 builder: (context, contactprovider, child) {
               return SingleChildScrollView(
                 child: Container(
-                  height: MediaQuery.sizeOf(context).height * 0.7,
+                  height: MediaQuery.sizeOf(context).height * 0.77,
                   width: MediaQuery.sizeOf(context).width * 0.9,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+
                     borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey, spreadRadius: 1, blurRadius: 15),
-                    ],
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //       color: Colors.grey, spreadRadius: 1, blurRadius: 15),
+                    // ],
                   ),
                   child: Consumer<ContactProvider>(
                     builder: (BuildContext context, contact, Widget? child) {
                       return Form(
-                        key: contact.globalKey,
+                        key: contact.iosKey,
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
@@ -238,7 +239,7 @@ class _ProfileState extends State<Profile> {
                                                     .time,
                                                 onDateTimeChanged: (value) {
                                                   time.changedata(value);
-                                                  time.Date = value;
+                                                  time.datetime = value;
                                                 },
                                               ),
                                             );
@@ -252,7 +253,7 @@ class _ProfileState extends State<Profile> {
                                         children: [
                                           Icon(CupertinoIcons.clock),
                                           Text(
-                                            time.Date == null
+                                            time.datetime == null
                                                 ? "Pick Time"
                                                 : "${time.Date?.hour}:${time.Date?.minute}",
                                             style: TextStyle(
@@ -274,7 +275,7 @@ class _ProfileState extends State<Profile> {
                                 onPressed: () {
                                   var cp = Provider.of<ContactProvider>(context,
                                       listen: false);
-                                  if (cp.globalKey.currentState?.validate() ??
+                                  if (cp.iosKey.currentState?.validate() ??
                                       false) {
                                     ContactModel cm = ContactModel(
                                         number: cp.phonecontroller.text,

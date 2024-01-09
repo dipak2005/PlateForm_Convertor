@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
       child: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Consumer<BottomBar>(
                 builder: (context, page, child) {
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
                     children: const [
                       Profile(),
                       IosChat(),
-                      Calls(),
+                      IosCalls(),
                       IosSettings(),
                     ],
                   );
@@ -106,7 +106,7 @@ class _HomeState extends State<Home> {
                         icon: const Icon(
                           CupertinoIcons.person_add,
                           size: 30,
-                          color: Colors.brown,
+                          color: Colors.black54,
                         ),
                       ),
                       BottomNavigationBarItem(
@@ -115,7 +115,7 @@ class _HomeState extends State<Home> {
                         activeIcon:
                             Icon(CupertinoIcons.chat_bubble_2_fill, size: 30),
                         icon: const Icon(CupertinoIcons.chat_bubble_2_fill,
-                            color: Colors.brown, size: 30),
+                            color: Colors.black54, size: 30),
                       ),
                       BottomNavigationBarItem(
                         label: "Calls",
@@ -123,16 +123,16 @@ class _HomeState extends State<Home> {
                         activeIcon:
                             Icon(CupertinoIcons.phone_circle_fill, size: 30),
                         icon: const Icon(CupertinoIcons.phone_circle_fill,
-                            color: Colors.brown, size: 30),
+                            color: Colors.black54, size: 30),
                       ),
                       BottomNavigationBarItem(
                         label: "Settings",
                         tooltip: "Settings",
                         activeIcon: Icon(CupertinoIcons.settings, size: 30),
-                        icon: const Icon(
+                        icon: Icon(
                           CupertinoIcons.settings,
                           size: 30,
-                          color: Colors.brown,
+                          color: Colors.black54,
                         ),
                       ),
                     ],

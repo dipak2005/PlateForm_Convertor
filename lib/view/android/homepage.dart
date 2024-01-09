@@ -39,19 +39,11 @@ class _HomepageState extends State<Homepage> {
       length: 4,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
+        appBar: AppBar(elevation: 1,
           title: Text(
             "Contacts",
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "Settings");
-              },
-              icon: const Icon(
-                Icons.settings,
-              ),
-            ),
             Consumer<PlateFormCovter>(
                 builder: (BuildContext context, plate, Widget? child) {
               return Switch(
@@ -80,11 +72,11 @@ class _HomepageState extends State<Homepage> {
               Text("SETTINGS",
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).devicePixelRatio * 4)),
-
             ],
           ),
         ),
-        body: TabBarView(physics: const AlwaysScrollableScrollPhysics(),
+        body: TabBarView(
+          physics: const AlwaysScrollableScrollPhysics(),
           children: [
             const Contactlist(),
             const Chats(),
@@ -92,37 +84,23 @@ class _HomepageState extends State<Homepage> {
             Settings(),
           ],
         ),
-        floatingActionButton: Consumer<ThemeProvider>(
-          builder: (context, theme, child) => FloatingActionButton(
-            backgroundColor: Colors.blue,
-            onPressed: () async {
-              await Navigator.pushNamed(
-                context,
-                "AddContact",
-              );
-
-
-            },
-            child: Icon(Icons.add, color: Colors.white),
-          ),
-        ),
       ),
     );
   }
 
-  // void error() async {
-  //   final LocalAuthentication auth = LocalAuthentication();
-  //   try {
-  //     print("hello");
-  //     final bool didAuthenticate = await auth.authenticate(
-  //         localizedReason: 'Please authenticate to show account balance',
-  //         options: const AuthenticationOptions(useErrorDialogs: false));
-  //   } on PlatformException catch (e) {
-  //     if (e.code == auth_error.notEnrolled) {
-  //       // Add handling of no hardware here.
-  //     } else if (e.code == auth_error.lockedOut ||
-  //         e.code == auth_error.permanentlyLockedOut) {
-  //     } else {}
-  //   }
-  // }
+// void error() async {
+//   final LocalAuthentication auth = LocalAuthentication();
+//   try {
+//     print("hello");
+//     final bool didAuthenticate = await auth.authenticate(
+//         localizedReason: 'Please authenticate to show account balance',
+//         options: const AuthenticationOptions(useErrorDialogs: false));
+//   } on PlatformException catch (e) {
+//     if (e.code == auth_error.notEnrolled) {
+//       // Add handling of no hardware here.
+//     } else if (e.code == auth_error.lockedOut ||
+//         e.code == auth_error.permanentlyLockedOut) {
+//     } else {}
+//   }
+// }
 }
