@@ -19,12 +19,12 @@ Welcome to the Platform Converter App! This Flutter-based application provides a
 # Screenshots
 <image  src> ![p1 (2)](https://github.com/dipak2005/contact_dairy1/assets/143473007/e118e90c-d721-4812-a408-058d707ccc99)
 # How to use
-Clone the repository.
-Follow the installation instructions in the project documentation.
-Run the app on your preferred platform (Android/iOS).
-Feel free to explore and contribute to the project! If you encounter any issues or have suggestions, please open an issue.
+- Clone the repository.
+- Follow the installation instructions in the project documentation.
+- Run the app on your preferred platform (Android/iOS).
+- Feel free to explore and contribute to the project! If you encounter any issues or have suggestions, please open an issue.
 
-Happy coding!
+- Happy coding!!!
 
 
 
