@@ -15,7 +15,5 @@ Welcome to the Platform Converter App! This Flutter-based application provides a
 - Flutter framework with MVC and Provider architecure
 - Local storage: shared_preferences package
 
-# Project Evaluation:
-- User satisfaction with the application’s functionality and UI/UX
-- Quality of code and project structure
-- Presentation quality and clarity of communication
+# Screenshots
+
