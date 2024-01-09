@@ -1,16 +1,30 @@
-# contact_dairy
+# Plateform Converter App
+# Project Overview
+Welcome to the Platform Converter App! This Flutter-based application provides a seamless experience with various features, including profile management, contact management, app switching between Material and Human Interface, call functionality, and more.
 
-A new Flutter project.
+# Project Features
+- Profile management functionality
+- Add contact functionality with image and date/time pickers
+- App switching functionality (From Material to Human Interface and vice versa)
+- Call functionality
+- Edit & Delete contact functionality
+- Persistent theme save functionality using local storage
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+# Project Technologies
+- Dart language
+- Flutter framework with MVC and Provider architecure
+- Local storage: shared_preferences package
 
-A few resources to get you started if this is your first Flutter project:
+# Screenshots
+<image  src> ![p1 (2)](https://github.com/dipak2005/contact_dairy1/assets/143473007/e118e90c-d721-4812-a408-058d707ccc99)
+# How to use
+- Clone the repository.
+- Follow the installation instructions in the project documentation.
+- Run the app on your preferred platform (Android/iOS).
+- Feel free to explore and contribute to the project! If you encounter any issues or have suggestions, please open an issue.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Happy coding!!!
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
